@@ -47,7 +47,7 @@ public class ParkingLot {
         this.parkingStrategy = parkingStrategy;
     }
 
-    public Optional<ParkingTicket> parkVehicle(Vehicle vehicle) {
+    public synchronized Optional<ParkingTicket> parkVehicle(Vehicle vehicle) {
         Optional<ParkingSpot> availableSpot = parkingStrategy.findSpot(floors, vehicle);
 
         if (availableSpot.isPresent()) {
