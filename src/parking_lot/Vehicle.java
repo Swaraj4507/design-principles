@@ -1,3 +1,5 @@
+package parking_lot;
+
 public abstract class Vehicle {
     private final int size;
     private final VEHICLE_TYPE vehicleType;

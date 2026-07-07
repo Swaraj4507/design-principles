@@ -1,3 +1,5 @@
+package parking_lot;
+
 public enum VEHICLE_TYPE {
 
     CAR(4),

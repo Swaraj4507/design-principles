@@ -1,3 +1,5 @@
+package parking_lot;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -17,7 +19,7 @@ public class ParkingLot {
         for (Level level : levels){
             if (level.occupyAvailableSpot(v)){
                 vehicleLevelMap.put(v,level);
-                System.out.println("Vehicle Parked at level " + level.levelNo);
+                System.out.println("parking_lot.Vehicle Parked at level " + level.levelNo);
                 return;
             }
         }
@@ -33,7 +35,7 @@ public class ParkingLot {
             vehicleLevelMap.remove(v);
         }
         else {
-            throw  new RuntimeException("Vehicle doesn't exist");
+            throw  new RuntimeException("parking_lot.Vehicle doesn't exist");
         }
     }
 

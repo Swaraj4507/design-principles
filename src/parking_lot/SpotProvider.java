@@ -1,3 +1,5 @@
+package parking_lot;
+
 public class SpotProvider {
     // Prototype pattern
     Spot carSpot = new Spot(VEHICLE_TYPE.CAR.getSize());
