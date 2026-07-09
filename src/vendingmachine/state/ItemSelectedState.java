@@ -10,11 +10,17 @@ public class ItemSelectedState extends VendingMachineState {
 
     @Override
     public void insertCoin(Coin coin) {
-        machine.addBalance(coin.getValue());
-        System.out.println("Coin Inserted: " + coin.getValue());
         int price = machine.getSelectedItem().getPrice();
-        if (machine.getBalance() >= price) {
-            System.out.println("Sufficient money received.");
+        int remaining = price - machine.getBalance();
+        if (coin.getValue() > remaining) {
+            System.out.println("Coin rejected: please insert the exact amount. Remaining: " + remaining);
+            return;
+        }
+
+        machine.addBalance(coin);
+        System.out.println("Coin Inserted: " + coin.getValue());
+        if (machine.getBalance() == price) {
+            System.out.println("Exact amount received.");
             machine.setState(new HasMoneyState(machine));
         }
     }
@@ -31,6 +37,7 @@ public class ItemSelectedState extends VendingMachineState {
 
     @Override
     public void refund() {
+        machine.refundBalance();
         machine.reset();
         machine.setState(new IdleState(machine));
     }

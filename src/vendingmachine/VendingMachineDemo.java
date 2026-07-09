@@ -17,9 +17,9 @@ public class VendingMachineDemo {
 
         // Insert coins
         System.out.println("\n--- Step 2: Insert coins ---");
-        vendingMachine.insertCoin(Coin.DIME); // 10
-        vendingMachine.insertCoin(Coin.DIME); // 10
-        vendingMachine.insertCoin(Coin.NICKEL); // 5
+        vendingMachine.insertCoin(Coin.TEN); // 10
+        vendingMachine.insertCoin(Coin.TEN); // 10
+        vendingMachine.insertCoin(Coin.FIVE); // 5
 
         // Dispense the product
         System.out.println("\n--- Step 3: Dispense item ---");
@@ -29,12 +29,12 @@ public class VendingMachineDemo {
         System.out.println("\n--- Step 4: Select another item ---");
         vendingMachine.selectItem("B1");
 
-        // Insert more amount
-        System.out.println("\n--- Step 5: Insert more than needed ---");
-        vendingMachine.insertCoin(Coin.QUARTER); // 25
+        // Insert exact amount
+        System.out.println("\n--- Step 5: Insert exact amount ---");
+        vendingMachine.insertCoin(Coin.TEN); // 10
 
-        // Try to dispense the product
-        System.out.println("\n--- Step 6: Dispense and return change ---");
+        // Dispense the product
+        System.out.println("\n--- Step 6: Dispense item ---");
         vendingMachine.dispense();
     }
 }

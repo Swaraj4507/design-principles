@@ -22,18 +22,41 @@ public class DispensingState extends VendingMachineState {
     @Override
     public void dispense() {
         Item item = machine.getSelectedItem();
-        int balance = machine.getBalance();
-        if (balance >= item.getPrice()) {
+        if (machine.getBalance() == item.getPrice()) {
             machine.getInventory().reduceStock(machine.getSelectedItemCode());
             System.out.println("Dispensed: " + item.getName());
-            int change = balance - item.getPrice();
-            if (change > 0) {
-                System.out.println("Returning change: " + change);
-            }
         }
         machine.reset();
         machine.setState(new IdleState(machine));
     }
+
+    // Change-returning version, kept for reference in case exact-payment is dropped
+    // in favor of allowing overpayment + making change via VendingMachine.makeChange:
+    //
+    // @Override
+    // public void dispense() {
+    //     Item item = machine.getSelectedItem();
+    //     int balance = machine.getBalance();
+    //     if (balance >= item.getPrice()) {
+    //         int changeAmount = balance - item.getPrice();
+    //         Optional<Map<Coin, Integer>> change = changeAmount == 0
+    //                 ? Optional.of(Map.of())
+    //                 : machine.makeChange(changeAmount);
+    //
+    //         if (change.isPresent()) {
+    //             machine.getInventory().reduceStock(machine.getSelectedItemCode());
+    //             System.out.println("Dispensed: " + item.getName());
+    //             if (changeAmount > 0) {
+    //                 System.out.println("Returning change: " + changeAmount + " " + change.get());
+    //             }
+    //         } else {
+    //             System.out.println("Cannot dispense: insufficient change available.");
+    //             machine.refundBalance();
+    //         }
+    //     }
+    //     machine.reset();
+    //     machine.setState(new IdleState(machine));
+    // }
 
     @Override
     public void refund() {
