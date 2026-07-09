@@ -12,7 +12,7 @@ public class VendingMachine {
     private int balance = 0;
     private String selectedItemCode;
 
-    public VendingMachine() {
+    private VendingMachine() {
         currentVendingMachineState = new IdleState(this);
     }
 
@@ -20,30 +20,30 @@ public class VendingMachine {
         return INSTANCE;
     }
 
-    public void insertCoin(Coin coin) {
+    public synchronized void insertCoin(Coin coin) {
         currentVendingMachineState.insertCoin(coin);
     }
 
-    public Item addItem(String code, String name, int price, int quantity) {
+    public synchronized Item addItem(String code, String name, int price, int quantity) {
         Item item = new Item(code, name, price);
         inventory.addItem(code, item, quantity);
         return item;
     }
 
-    public void selectItem(String code) {
+    public synchronized void selectItem(String code) {
         currentVendingMachineState.selectItem(code);
     }
 
-    public void dispense() {
+    public synchronized void dispense() {
         currentVendingMachineState.dispense();
     }
 
-    public void refundBalance() {
+    public synchronized void refundBalance() {
         System.out.println("Refunding: " + balance);
         balance = 0;
     }
 
-    public void reset() {
+    public synchronized void reset() {
         selectedItemCode = null;
         balance = 0;
     }

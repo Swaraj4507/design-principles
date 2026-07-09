@@ -1,11 +1,11 @@
 package vendingmachine.entity;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Inventory {
-    private final Map<String, Item> itemMap = new HashMap<>();
-    private final Map<String, Integer> stockMap = new HashMap<>();
+    private final Map<String, Item> itemMap = new ConcurrentHashMap<>();
+    private final Map<String, Integer> stockMap = new ConcurrentHashMap<>();
 
     public void addItem(String code, Item item, int quantity) {
         itemMap.put(code, item);
@@ -21,6 +21,6 @@ public class Inventory {
     }
 
     public void reduceStock(String code) {
-        stockMap.put(code, stockMap.get(code) - 1);
+        stockMap.computeIfPresent(code, (k, quantity) -> quantity - 1);
     }
 }
