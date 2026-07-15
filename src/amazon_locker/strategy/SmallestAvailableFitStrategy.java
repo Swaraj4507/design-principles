@@ -4,7 +4,6 @@ import amazon_locker.entities.Locker;
 import amazon_locker.entities.LockerStatus;
 import amazon_locker.entities.Size;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,9 +14,18 @@ import java.util.Optional;
 public class SmallestAvailableFitStrategy implements LockerFindingStrategy {
     @Override
     public Optional<Locker> findLocker(List<Locker> lockers, Size parcelSize) {
-        return lockers.stream()
-                .filter(locker -> locker.getStatus() == LockerStatus.AVAILABLE)
-                .filter(locker -> locker.getSize().compareTo(parcelSize) >= 0)
-                .min(Comparator.comparing(Locker::getSize));
+        Locker best = null;
+        for (Locker locker : lockers) {
+            if (locker.getStatus() != LockerStatus.AVAILABLE) {
+                continue;
+            }
+            if (locker.getSize().compareTo(parcelSize) < 0) {
+                continue; // too small to fit the parcel
+            }
+            if (best == null || locker.getSize().compareTo(best.getSize()) < 0) {
+                best = locker;
+            }
+        }
+        return Optional.ofNullable(best);
     }
 }

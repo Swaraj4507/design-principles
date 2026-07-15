@@ -14,9 +14,11 @@ import java.util.Optional;
 public class ExactFitStrategy implements LockerFindingStrategy {
     @Override
     public Optional<Locker> findLocker(List<Locker> lockers, Size parcelSize) {
-        return lockers.stream()
-                .filter(locker -> locker.getStatus() == LockerStatus.AVAILABLE)
-                .filter(locker -> locker.getSize() == parcelSize)
-                .findFirst();
+        for (Locker locker : lockers) {
+            if (locker.getStatus() == LockerStatus.AVAILABLE && locker.getSize() == parcelSize) {
+                return Optional.of(locker);
+            }
+        }
+        return Optional.empty();
     }
 }
