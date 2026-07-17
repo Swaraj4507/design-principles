@@ -1,9 +1,9 @@
 package rate_limiter.entities;
 
-// [2] A plain boolean can't carry retry-after (req #5), so the outcome is
-//     its own type. Construction goes through allow()/deny(retryAfterMillis)
-//     rather than a public constructor, so "allowed but with a retryAfter"
-//     can't be built by mistake.
+// [RL-2] A plain boolean can't carry retry-after (req #5), so the outcome
+//        is its own type. Construction goes through
+//        allow()/deny(retryAfterMillis) rather than a public constructor,
+//        so "allowed but with a retryAfter" can't be built by mistake.
 public class RateLimitDecision {
     private final boolean allowed;
     private final long retryAfterMillis;

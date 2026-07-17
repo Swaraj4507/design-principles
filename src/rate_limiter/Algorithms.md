@@ -3,7 +3,7 @@
 Both strategies are handed the same `RateLimitPolicy` — `N requests per
 windowDuration` — but that number means something different depending on
 the algorithm. `RateLimitPolicy` is deliberately a business policy, not an
-algorithm-specific config (see `[1]` in `RateLimitPolicy.java`): each
+algorithm-specific config (see `[RL-1]` in `RateLimitPolicy.java`): each
 strategy derives its own internal mechanics from it, rather than owning a
 distinct config type like a `TokenBucketConfig` vs a `SlidingWindowConfig`.
 That's what lets a policy survive an algorithm swap (req #9) — but it does
@@ -39,7 +39,7 @@ then keep sending at exactly the refill rate — by t=60s that's
 
 It does **not** promise "never more than N requests in any rolling window of
 length windowDuration" — that's a stronger guarantee, and it's exactly what
-sliding window log provides instead. The "starts full" design (see `[8]` in
+sliding window log provides instead. The "starts full" design (see `[RL-8]` in
 `TokenBucketStrategy.java`) means every key gets one such burst credit up
 front, and gets it again any time it sits idle long enough for the bucket to
 refill back to capacity.
