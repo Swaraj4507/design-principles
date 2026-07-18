@@ -148,7 +148,7 @@ public class Dispatcher {
 
     private void log(String notificationId, ChannelType channelType, DeliveryStatus status) {
         deliveryLogs.computeIfAbsent(notificationId, id -> new CopyOnWriteArrayList<>())
-                .add(new DeliveryLog(channelType, status, Instant.now()));
+                .add(new DeliveryLog(notificationId,channelType, status, Instant.now()));
     }
 
     public List<DeliveryLog> getDeliveryLogs(String notificationId) {
